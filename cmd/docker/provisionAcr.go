@@ -126,6 +126,10 @@ var provisionAcrCmd = &cobra.Command{
 		pterm.Success.Println("ACR provisioning completed successfully.")
 		return nil
 	},
+	Example: `
+	smurf sdkr provision-acr --subscription-id <SUBSCRIPTION_ID> --resource-group <RESOURCE_GROUP> --registry-name <REGISTRY_NAME> --image-name <IMAGE_NAME> --tag <TAG>
+	smurf sdkr provision-acr --subscription-id <SUBSCRIPTION_ID> --resource-group <RESOURCE_GROUP> --registry-name <REGISTRY_NAME> --image-name <IMAGE_NAME> --tag <TAG> --file Dockerfile --no-cache --build-arg key1=value1 --build-arg key2=value2 --target my-target --platform linux/amd64 --output report.sarif --target-tag my-tag --yes --delete
+	`,
 }
 
 func init() {

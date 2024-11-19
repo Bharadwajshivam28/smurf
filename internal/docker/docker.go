@@ -250,6 +250,8 @@ func handleDockerResponse(responseBody io.ReadCloser, spinner *pterm.SpinnerPrin
 	}
 
 	spinner.Success("Image push complete.")
+	link := fmt.Sprint("https://hub.docker.com/repository/" )
+	pterm.Info.Println("Image Pushed on Docker Hub:", link)
 	pterm.Success.Println("Successfully pushed image:", opts.ImageName)
 	return nil
 }
@@ -447,6 +449,8 @@ func PushImageToECR(imageName, region, repositoryName string) error {
 		}
 	}
 
+	link := fmt.Sprintf("https://%s.console.aws.amazon.com/ecr/repositories/%s", region, repositoryName)
+	pterm.Info.Println("Image pushed to ECR:", link)
 	fmt.Println()
 	pterm.Success.Println("Image successfully pushed to ECR:", ecrImage)
 	return nil
@@ -564,7 +568,8 @@ func PushImageToACR(subscriptionID, resourceGroupName, registryName, imageName s
 		}
 	}
 	spinner.Success("Image pushed to ACR")
-
+	link := fmt.Sprintf("https://%s.azurecr.io", registryName)
+	color.New(color.FgGreen).Printf("Image pushed to ACR: %s\n", link)
 	color.New(color.FgGreen).Printf("Successfully pushed image '%s' to ACR '%s'\n", imageName, registryName)
 	return nil
 }
@@ -669,6 +674,8 @@ func PushImageToGCR(projectID, imageName string) error {
 	progressBar.Stop()
 	spinner.Success("Image pushed to GCR")
 
+	link := fmt.Sprintf("https://console.cloud.google.com/gcr/images/%s/%s?project=%s", projectID, imageName, projectID)
+	color.New(color.FgGreen).Printf("Image pushed to GCR: %s\n", link)
 	color.New(color.FgGreen).Printf("Successfully pushed image '%s' to GCR\n", taggedImage)
 	return nil
 }

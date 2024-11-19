@@ -42,6 +42,10 @@ var pushAcrCmd = &cobra.Command{
 
 		return nil
 	},
+	Example: `
+	smurf sdkr push az --subscription-id <subscription-id> --resource-group <resource-group> --registry-name <registry-name> --image <image-name> --tag <image-tag>
+	smurf sdkr push az --subscription-id <subscription-id> --resource-group <resource-group> --registry-name <registry-name> --image <image-name> --tag <image-tag> --delete
+	`,
 }
 
 func init() {

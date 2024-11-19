@@ -13,6 +13,9 @@ var lintCmd = &cobra.Command{
 		chartPath := args[0]
 		return helm.HelmLint(chartPath)
 	},
+	Example: `
+	smurf helm lint ./mychart
+	`,
 }
 
 func init() {

@@ -30,6 +30,10 @@ var pushHubCmd = &cobra.Command{
 		}
 		return nil
 	},
+	Example: `
+	smurf sdkr push hub --image <image-name> --tag <image-tag>
+	smurf sdkr push hub --image <image-name> --tag <image-tag> --delete
+	`,
 }
 
 func init() {

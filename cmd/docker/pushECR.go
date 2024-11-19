@@ -39,6 +39,10 @@ var pushEcrCmd = &cobra.Command{
 		}
 		return nil
 	},
+	Example: `
+	smurf sdkr push aws --region <region> --repository <repository> --image <image-name> --tag <image-tag>
+	smurf sdkr push aws --region <region> --repository <repository> --image <image-name> --tag <image-tag> --delete
+	`,
 }
 
 func init() {

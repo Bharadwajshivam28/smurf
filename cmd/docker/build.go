@@ -38,6 +38,9 @@ var buildCmd = &cobra.Command{
 
 		return docker.Build(args[0], args[1], opts)
 	},
+	Example: `
+	smurf sdkr build my-image my-tag
+	smurf sdkr build my-image my-tag --file Dockerfile --no-cache --build-arg key1=value1 --build-arg key2=value2 --target my-target --platform linux/amd64`,
 }
 
 func init() {

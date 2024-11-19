@@ -18,6 +18,9 @@ var tagCmd = &cobra.Command{
 		}
 		return docker.TagImage(opts)
 	},
+	Example: `
+	smurf sdkr tag --source <image:tag> --target <repository/image:tag>
+	`,
 }
 
 func init() {

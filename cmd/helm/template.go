@@ -13,6 +13,9 @@ var templateCmd = &cobra.Command{
     RunE: func(cmd *cobra.Command, args []string) error {
         return helm.HelmTemplate(args[0], args[1], "default")
     },
+    Example: `
+    smurf helm template my-release ./mychart
+    `,
 }
 
 func init() {

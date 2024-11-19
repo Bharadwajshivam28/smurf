@@ -12,6 +12,9 @@ var provisionCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return helm.HelmProvision(args[0], args[1], "default")
 	},
+	Example: `
+	smurf helm provision my-release ./mychart
+	`,
 }
 
 func init() {

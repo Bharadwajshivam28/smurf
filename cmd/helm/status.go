@@ -18,6 +18,10 @@ var statusCmd = &cobra.Command{
         }
 		return helm.HelmStatus(releaseName, statusNamespace) 
 	},
+	Example: `
+	smurf helm status my-release
+	smurf helm status my-release -n my-namespace
+	`,
 }
 
 func init() {

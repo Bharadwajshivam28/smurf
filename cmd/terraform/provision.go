@@ -51,6 +51,9 @@ var provisionCmd = &cobra.Command{
 
 		return nil
 	},
+	Example: `
+	smurf stf provision
+	`,
 }
 
 func init() {

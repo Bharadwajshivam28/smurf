@@ -37,10 +37,15 @@ var upgradeCmd = &cobra.Command{
         }
         return helm.HelmUpgrade(releaseName, chartPath, namespace, setValues, valuesFiles, createNamespace, atomic, timeout, debug)
     },
+    Example: `
+    smurf helm upgrade my-release ./mychart
+    smurf helm upgrade my-release ./mychart -n my-namespace
+    smurf helm upgrade my-release ./mychart --set key1=val1,key2=val2
+    smurf helm upgrade my-release ./mychart -f values.yaml --timeout 600s --atomic --debug --install
+    `,
 }
 
 func init() {
-    selmCmd.AddCommand(upgradeCmd)
     upgradeCmd.Flags().StringSliceVar(&setValues, "set", []string{}, "Set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)")
     upgradeCmd.Flags().StringSliceVarP(&valuesFiles, "values", "f", []string{}, "Specify values in a YAML file (can specify multiple)")
     upgradeCmd.Flags().StringVarP(&namespace, "namespace", "n", "default", "Specify the namespace to install the release into")
@@ -49,4 +54,5 @@ func init() {
     upgradeCmd.Flags().DurationVar(&timeout, "timeout", 300*time.Second, "Time to wait for any individual Kubernetes operation (like Jobs for hooks)")
     upgradeCmd.Flags().BoolVar(&debug, "debug", false, "Enable verbose output")
     upgradeCmd.Flags().BoolVar(&installIfNotPresent, "install", false, "Install the chart if it is not already installed")
+    selmCmd.AddCommand(upgradeCmd)
 }

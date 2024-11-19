@@ -43,6 +43,10 @@ var pushGcrCmd = &cobra.Command{
 
 		return nil
 	},
+	Example: `
+	smurf sdkr push gcp --project-id <project-id> --image <image-name> --tag <image-tag>
+	smurf sdkr push gcp --project-id <project-id> --image <image-name> --tag <image-tag> --delete
+	`,
 }
 
 func init() {

@@ -125,6 +125,9 @@ var provisionEcrCmd = &cobra.Command{
 		pterm.Success.Println("ECR provisioning completed successfully.")
 		return nil
 	},
+	Example: `
+	smurf sdkr provision-ecr --image-name my-image --tag my-tag --region us-west-2 --repository my-repo
+	smurf sdkr provision-ecr --image-name my-image --tag my-tag --region us-west-2 --repository my-repo --file Dockerfile --no-cache --build-arg key1=value1 --build-arg key2=value2 --target my-target --platform linux/amd64 --output my-sarif.sarif --target-tag my-tag --yes --delete`,
 }
 
 func init() {

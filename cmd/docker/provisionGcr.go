@@ -127,6 +127,9 @@ var provisionGcrCmd = &cobra.Command{
 		pterm.Success.Println("GCR provisioning completed successfully.")
 		return nil
 	},
+	Example: `
+	smurf sdkr provision-gcr --project-id my-project --image-name my-image --tag my-tag
+	smurf sdkr provision-gcr --project-id my-project --image-name my-image --tag my-tag --file Dockerfile --no-cache --build-arg key1=value1 --build-arg key2=value2 --target my-target --output my-sarif-file.sarif --target-tag my-target-tag --yes --delete --platform linux/amd64`,
 }
 
 func init() {

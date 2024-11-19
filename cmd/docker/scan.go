@@ -20,6 +20,9 @@ var scan = &cobra.Command{
         }
         return nil
     },
+    Example: `
+    smurf sdkr scan --tag <image-name> --output <sarif-file>
+    `,
 }
 
 func init() {

@@ -28,6 +28,11 @@ var (
 var provisionHubCmd = &cobra.Command{
 	Use:   "provision-hub",
 	Short: "Build, scan, tag, and push a Docker image.",
+	Long: `Build, scan, tag, and push a Docker image.
+	export DOCKER_USERNAME="your-username" 
+	export DOCKER_PASSWORD="your-password"
+	for Docker Hub authentication.
+	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fullImageName := fmt.Sprintf("%s:%s", provisionImageName, provisionImageTag)
 
@@ -139,6 +144,10 @@ var provisionHubCmd = &cobra.Command{
 		pterm.Success.Println("Provisioning completed successfully.")
 		return nil
 	},
+	Example: `
+	smurf sdkr provision-hub --image-name my-image --tag my-tag
+	smurf sdkr provision-hub --image-name my-image --tag my-tag --file Dockerfile --no-cache --build-arg key1=value1 --build-arg key2=value2 --target my-target --platform linux/amd64 --output report.sarif --target-tag my-tag --yes --delete
+	`,
 }
 
 func init() {

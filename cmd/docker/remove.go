@@ -23,6 +23,9 @@ var remove = &cobra.Command{
 		pterm.Success.Println("Image removal completed successfully.")
 		return nil
 	},
+	Example: `
+	smurf sdkr remove --tag <image-name>
+	`,
 }
 
 func init() {
