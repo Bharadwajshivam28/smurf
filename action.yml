@@ -83,18 +83,18 @@ runs:
     # - sdkr
     - ${{ inputs.tool }}
     - ${{ inputs.command }}
-    - ${{ inputs.CLOUD_PROVIDER }}
-    - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
-    - ${{ inputs.command == 'push' && '--resource-group ' || '' }}${{ inputs.command == 'push' && inputs.RESOURCE_GROUP || '' }}
-    - ${{ inputs.command == 'push' && '--registry-name ' || '' }}${{ inputs.command == 'push' && inputs.REGISTRY_NAME || '' }}
-    - ${{ inputs.command == 'push' && '--region ' || '' }}${{ inputs.command == 'push' && inputs.REGION || '' }}
-    - ${{ inputs.command == 'push' && '--project-id ' || '' }}${{ inputs.command == 'push' && inputs.PROJECT_ID || '' }}
-    - ${{ inputs.command == 'push' && '--repository ' || '' }}${{ inputs.command == 'push' && inputs.REPOSITORY || '' }}
-    - ${{ inputs.command == 'push' && '--image ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'push' && '--tag ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_TAG || '' }}
-    - ${{ inputs.command == 'push' && inputs.DELETE_AFTER_PUSH == 'true' && '--delete' || '' }}
-    - ${{ inputs.command == 'remove' && '--tag ' || '' }}${{ inputs.command == 'remove' && inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'scan' && '--tag ' || '' }}${{ inputs.command == 'scan' && inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'scan' && '--output ' || '' }}${{ inputs.command == 'scan' && inputs.SARIF_OUTPUT || '' }}
-    - ${{ inputs.command == 'tag' && '--source ' || '' }}${{ inputs.command == 'tag' && inputs.SOURCE_TAG || '' }}
-    - ${{ inputs.command == 'tag' && '--target ' || '' }}${{ inputs.command == 'tag' && inputs.TARGET_TAG || '' }}
+    # - ${{ inputs.CLOUD_PROVIDER }}
+    # - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
+    # - ${{ inputs.command == 'push' && '--resource-group ' || '' }}${{ inputs.command == 'push' && inputs.RESOURCE_GROUP || '' }}
+    # - ${{ inputs.command == 'push' && '--registry-name ' || '' }}${{ inputs.command == 'push' && inputs.REGISTRY_NAME || '' }}
+    # - ${{ inputs.command == 'push' && '--region ' || '' }}${{ inputs.command == 'push' && inputs.REGION || '' }}
+    # - ${{ inputs.command == 'push' && '--project-id ' || '' }}${{ inputs.command == 'push' && inputs.PROJECT_ID || '' }}
+    # - ${{ inputs.command == 'push' && '--repository ' || '' }}${{ inputs.command == 'push' && inputs.REPOSITORY || '' }}
+    # - ${{ inputs.command == 'push' && '--image ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_NAME || '' }}
+    # - ${{ inputs.command == 'push' && '--tag ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_TAG || '' }}
+    # - ${{ inputs.command == 'push' && inputs.DELETE_AFTER_PUSH == 'true' && '--delete' || '' }}
+    # - ${{ inputs.command == 'remove' && '--tag ' || '' }}${{ inputs.command == 'remove' && inputs.IMAGE_NAME || '' }}
+    # - ${{ inputs.command == 'scan' && '--tag ' || '' }}${{ inputs.command == 'scan' && inputs.IMAGE_NAME || '' }}
+    # - ${{ inputs.command == 'scan' && '--output ' || '' }}${{ inputs.command == 'scan' && inputs.SARIF_OUTPUT || '' }}
+    # - ${{ inputs.command == 'tag' && '--source ' || '' }}${{ inputs.command == 'tag' && inputs.SOURCE_TAG || '' }}
+    # - ${{ inputs.command == 'tag' && '--target ' || '' }}${{ inputs.command == 'tag' && inputs.TARGET_TAG || '' }}
