@@ -1,0 +1,89 @@
+name: 'Smurf'
+description: 'Builds, tags, scans, pushes, and removes Docker images using the Smurf CLI'
+
+inputs:
+  command:
+    description: 'Command to run'
+    required: true
+  CLOUD_PROVIDER:
+    description: 'Cloud provider'
+    required: false
+  SUBSCRIPTION_ID:
+    description: 'Azure Subscription ID'
+    required: false
+  RESOURCE_GROUP:
+    description: 'Azure Resource Group'
+    required: false
+  REGISTRY_NAME:
+    description: 'Azure Registry Name'
+    required: false
+  REGION:
+    description: 'AWS or GCP Region'
+    required: false
+  PROJECT_ID:
+    description: 'GCP Project ID'
+    required: false
+  REPOSITORY:
+    description: 'AWS or Docker Hub Repository'
+    required: false
+  IMAGE_NAME:
+    description: 'Docker Image Name'
+    required: false
+  IMAGE_TAG:
+    description: 'Docker Image Tag'
+    required: false
+  DELETE_AFTER_PUSH:
+    description: 'Delete image after push (true or false)'
+    required: false
+    default: 'false'
+  SOURCE_TAG:
+    description: 'Source image and tag for tagging (e.g., image:tag)'
+    required: false
+  TARGET_TAG:
+    description: 'Target repository/image and tag for tagging (e.g., repository/image:tag)'
+    required: false
+  SARIF_OUTPUT:
+    description: 'Output file for image scan results'
+    required: false
+  DOCKERFILE_PATH:
+    description: 'Path to the Dockerfile'
+    required: false
+    default: './Dockerfile'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    CLOUD_PROVIDER: ${{ inputs.CLOUD_PROVIDER }}
+    SUBSCRIPTION_ID: ${{ inputs.SUBSCRIPTION_ID }}
+    RESOURCE_GROUP: ${{ inputs.RESOURCE_GROUP }}
+    REGISTRY_NAME: ${{ inputs.REGISTRY_NAME }}
+    REGION: ${{ inputs.REGION }}
+    PROJECT_ID: ${{ inputs.PROJECT_ID }}
+    REPOSITORY: ${{ inputs.REPOSITORY }}
+    IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
+    IMAGE_TAG: ${{ inputs.IMAGE_TAG }}
+    DELETE_AFTER_PUSH: ${{ inputs.DELETE_AFTER_PUSH }}
+    SOURCE_TAG: ${{ inputs.SOURCE_TAG }}
+    TARGET_TAG: ${{ inputs.TARGET_TAG }}
+    SARIF_OUTPUT: ${{ inputs.SARIF_OUTPUT }}
+    DOCKERFILE_PATH: ${{ inputs.DOCKERFILE_PATH }}
+  args:
+    - smurf
+    - sdkr
+    - ${{ inputs.command }}
+    - ${{ inputs.CLOUD_PROVIDER }}
+    - ${{ inputs.command == 'push' && '--subscription-id ' + inputs.SUBSCRIPTION_ID || '' }}
+    - ${{ inputs.command == 'push' && '--resource-group ' + inputs.RESOURCE_GROUP || '' }}
+    - ${{ inputs.command == 'push' && '--registry-name ' + inputs.REGISTRY_NAME || '' }}
+    - ${{ inputs.command == 'push' && '--region ' + inputs.REGION || '' }}
+    - ${{ inputs.command == 'push' && '--project-id ' + inputs.PROJECT_ID || '' }}
+    - ${{ inputs.command == 'push' && '--repository ' + inputs.REPOSITORY || '' }}
+    - ${{ inputs.command == 'push' && '--image ' + inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'push' && '--tag ' + inputs.IMAGE_TAG || '' }}
+    - ${{ inputs.command == 'push' && inputs.DELETE_AFTER_PUSH == 'true' && '--delete' || '' }}
+    - ${{ inputs.command == 'remove' && '--tag ' + inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'scan' && '--tag ' + inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'scan' && '--output ' + inputs.SARIF_OUTPUT || '' }}
+    - ${{ inputs.command == 'tag' && '--source ' + inputs.SOURCE_TAG || '' }}
+    - ${{ inputs.command == 'tag' && '--target ' + inputs.TARGET_TAG || '' }}
