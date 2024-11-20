@@ -83,7 +83,7 @@ runs:
     # - ${{ inputs.SUBSCRIPTION_ID }}
     # - ${{ inputs.RESOURCE_GROUP }}
     # - ${{ inputs.REGION }}
-    - ${{ inputs.REGISTRY_NAME }}
+    # - ${{ inputs.REGISTRY_NAME }}
     # - ${{ inputs.REPOSITORY }}
     # - ${{ inputs.DELETE_AFTER_PUSH }}
     # - ${{ inputs.SOURCE_TAG }}
