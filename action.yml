@@ -49,7 +49,13 @@ inputs:
     description: 'Path to the Dockerfile'
     required: false
     default: './Dockerfile'
-
+  DOCKER_USERNAME:
+    description: 'Docker Hub username'
+    required: false
+  DOCKER_PASSWORD:
+    description: 'Docker Hub password'
+    required: false
+  
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -68,22 +74,24 @@ runs:
     TARGET_TAG: ${{ inputs.TARGET_TAG }}
     SARIF_OUTPUT: ${{ inputs.SARIF_OUTPUT }}
     DOCKERFILE_PATH: ${{ inputs.DOCKERFILE_PATH }}
+    DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ inputs.DOCKER_PASSWORD }}
   args:
     - smurf
     - sdkr
     - ${{ inputs.command }}
     - ${{ inputs.CLOUD_PROVIDER }}
-    - ${{ inputs.command == 'push' && '--subscription-id ' + inputs.SUBSCRIPTION_ID || '' }}
-    - ${{ inputs.command == 'push' && '--resource-group ' + inputs.RESOURCE_GROUP || '' }}
-    - ${{ inputs.command == 'push' && '--registry-name ' + inputs.REGISTRY_NAME || '' }}
-    - ${{ inputs.command == 'push' && '--region ' + inputs.REGION || '' }}
-    - ${{ inputs.command == 'push' && '--project-id ' + inputs.PROJECT_ID || '' }}
-    - ${{ inputs.command == 'push' && '--repository ' + inputs.REPOSITORY || '' }}
-    - ${{ inputs.command == 'push' && '--image ' + inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'push' && '--tag ' + inputs.IMAGE_TAG || '' }}
+    - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
+    - ${{ inputs.command == 'push' && '--resource-group ' || '' }}${{ inputs.command == 'push' && inputs.RESOURCE_GROUP || '' }}
+    - ${{ inputs.command == 'push' && '--registry-name ' || '' }}${{ inputs.command == 'push' && inputs.REGISTRY_NAME || '' }}
+    - ${{ inputs.command == 'push' && '--region ' || '' }}${{ inputs.command == 'push' && inputs.REGION || '' }}
+    - ${{ inputs.command == 'push' && '--project-id ' || '' }}${{ inputs.command == 'push' && inputs.PROJECT_ID || '' }}
+    - ${{ inputs.command == 'push' && '--repository ' || '' }}${{ inputs.command == 'push' && inputs.REPOSITORY || '' }}
+    - ${{ inputs.command == 'push' && '--image ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'push' && '--tag ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_TAG || '' }}
     - ${{ inputs.command == 'push' && inputs.DELETE_AFTER_PUSH == 'true' && '--delete' || '' }}
-    - ${{ inputs.command == 'remove' && '--tag ' + inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'scan' && '--tag ' + inputs.IMAGE_NAME || '' }}
-    - ${{ inputs.command == 'scan' && '--output ' + inputs.SARIF_OUTPUT || '' }}
-    - ${{ inputs.command == 'tag' && '--source ' + inputs.SOURCE_TAG || '' }}
-    - ${{ inputs.command == 'tag' && '--target ' + inputs.TARGET_TAG || '' }}
+    - ${{ inputs.command == 'remove' && '--tag ' || '' }}${{ inputs.command == 'remove' && inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'scan' && '--tag ' || '' }}${{ inputs.command == 'scan' && inputs.IMAGE_NAME || '' }}
+    - ${{ inputs.command == 'scan' && '--output ' || '' }}${{ inputs.command == 'scan' && inputs.SARIF_OUTPUT || '' }}
+    - ${{ inputs.command == 'tag' && '--source ' || '' }}${{ inputs.command == 'tag' && inputs.SOURCE_TAG || '' }}
+    - ${{ inputs.command == 'tag' && '--target ' || '' }}${{ inputs.command == 'tag' && inputs.TARGET_TAG || '' }}
