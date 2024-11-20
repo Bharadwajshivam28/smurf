@@ -63,7 +63,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
-    CLOUD_PROVIDER: ${{ inputs.CLOUD_PROVIDER }}
     SUBSCRIPTION_ID: ${{ inputs.SUBSCRIPTION_ID }}
     RESOURCE_GROUP: ${{ inputs.RESOURCE_GROUP }}
     REGISTRY_NAME: ${{ inputs.REGISTRY_NAME }}
@@ -84,18 +83,13 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.IMAGE_NAME }}
     - ${{ inputs.IMAGE_TAG }}
-    # - ${{ inputs.CLOUD_PROVIDER }}
-    # - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
-    # - ${{ inputs.command == 'push' && '--resource-group ' || '' }}${{ inputs.command == 'push' && inputs.RESOURCE_GROUP || '' }}
-    # - ${{ inputs.command == 'push' && '--registry-name ' || '' }}${{ inputs.command == 'push' && inputs.REGISTRY_NAME || '' }}
-    # - ${{ inputs.command == 'push' && '--region ' || '' }}${{ inputs.command == 'push' && inputs.REGION || '' }}
-    # - ${{ inputs.command == 'push' && '--project-id ' || '' }}${{ inputs.command == 'push' && inputs.PROJECT_ID || '' }}
-    # - ${{ inputs.command == 'push' && '--repository ' || '' }}${{ inputs.command == 'push' && inputs.REPOSITORY || '' }}
-    # - ${{ inputs.command == 'push' && '--image ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_NAME || '' }}
-    # - ${{ inputs.command == 'push' && '--tag ' || '' }}${{ inputs.command == 'push' && inputs.IMAGE_TAG || '' }}
-    # - ${{ inputs.command == 'push' && inputs.DELETE_AFTER_PUSH == 'true' && '--delete' || '' }}
-    # - ${{ inputs.command == 'remove' && '--tag ' || '' }}${{ inputs.command == 'remove' && inputs.IMAGE_NAME || '' }}
-    # - ${{ inputs.command == 'scan' && '--tag ' || '' }}${{ inputs.command == 'scan' && inputs.IMAGE_NAME || '' }}
-    # - ${{ inputs.command == 'scan' && '--output ' || '' }}${{ inputs.command == 'scan' && inputs.SARIF_OUTPUT || '' }}
-    # - ${{ inputs.command == 'tag' && '--source ' || '' }}${{ inputs.command == 'tag' && inputs.SOURCE_TAG || '' }}
-    # - ${{ inputs.command == 'tag' && '--target ' || '' }}${{ inputs.command == 'tag' && inputs.TARGET_TAG || '' }}
+    - ${{ inputs.SUBSCRIPTION_ID }}
+    - ${{ inputs.RESOURCE_GROUP }}
+    - ${{ inputs.REGION }}
+    - ${{ inputs.REGISTRY_NAME }}
+    - ${{ inputs.REPOSITORY }}
+    - ${{ inputs.DELETE_AFTER_PUSH }}
+    - ${{ inputs.SOURCE_TAG }}
+    - ${{ inputs.TARGET_TAG }}
+    - ${{ inputs.SARIF_OUTPUT }}
+    - ${{ inputs.DOCKERFILE_PATH }}
