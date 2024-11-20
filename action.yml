@@ -8,9 +8,6 @@ inputs:
   command:
     description: 'Command to run'
     required: true
-  CLOUD_PROVIDER:
-    description: 'Cloud provider'
-    required: false
   SUBSCRIPTION_ID:
     description: 'Azure Subscription ID'
     required: false
@@ -18,16 +15,16 @@ inputs:
     description: 'Azure Resource Group'
     required: false
   REGISTRY_NAME:
-    description: 'Azure Registry Name'
+    description: 'Registry Name'
     required: false
   REGION:
-    description: 'AWS or GCP Region'
+    description: 'Region'
     required: false
   PROJECT_ID:
     description: 'GCP Project ID'
     required: false
   REPOSITORY:
-    description: 'AWS or Docker Hub Repository'
+    description: 'Repository'
     required: false
   IMAGE_NAME:
     description: 'Docker Image Name'
@@ -40,10 +37,10 @@ inputs:
     required: false
     default: 'false'
   SOURCE_TAG:
-    description: 'Source image and tag for tagging (e.g., image:tag)'
+    description: 'Source image and tag for tagging'
     required: false
   TARGET_TAG:
-    description: 'Target repository/image and tag for tagging (e.g., repository/image:tag)'
+    description: 'Target repository/image and tag for tagging'
     required: false
   SARIF_OUTPUT:
     description: 'Output file for image scan results'
