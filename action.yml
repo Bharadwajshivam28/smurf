@@ -80,9 +80,10 @@ runs:
     DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ inputs.DOCKER_PASSWORD }}
   args:
-    # - sdkr
     - ${{ inputs.tool }}
     - ${{ inputs.command }}
+    - ${{ inputs.IMAGE_NAME }}
+    - ${{ inputs.IMAGE_TAG }}
     # - ${{ inputs.CLOUD_PROVIDER }}
     # - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
     # - ${{ inputs.command == 'push' && '--resource-group ' || '' }}${{ inputs.command == 'push' && inputs.RESOURCE_GROUP || '' }}
