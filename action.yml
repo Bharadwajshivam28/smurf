@@ -77,7 +77,6 @@ runs:
     DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ inputs.DOCKER_PASSWORD }}
   args:
-    - smurf
     - sdkr
     - ${{ inputs.command }}
     - ${{ inputs.CLOUD_PROVIDER }}
