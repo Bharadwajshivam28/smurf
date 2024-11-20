@@ -2,6 +2,9 @@ name: 'Smurf'
 description: 'Builds, tags, scans, pushes, and removes Docker images using the Smurf CLI'
 
 inputs:
+  tool:
+    description: 'Tool to use'
+    required: true
   command:
     description: 'Command to run'
     required: true
@@ -77,7 +80,8 @@ runs:
     DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ inputs.DOCKER_PASSWORD }}
   args:
-    - sdkr
+    # - sdkr
+    - ${{ inputs.tool }}
     - ${{ inputs.command }}
     - ${{ inputs.CLOUD_PROVIDER }}
     - ${{ inputs.command == 'push' && '--subscription-id ' || '' }}${{ inputs.command == 'push' && inputs.SUBSCRIPTION_ID || '' }}
