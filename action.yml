@@ -86,7 +86,7 @@ runs:
     # - ${{ inputs.REGISTRY_NAME }}
     # - ${{ inputs.REPOSITORY }}
     # - ${{ inputs.DELETE_AFTER_PUSH }}
-    # - ${{ inputs.SOURCE_TAG }}
-    # - ${{ inputs.TARGET_TAG }}
+    - ${{ inputs.SOURCE_TAG }}
+    - ${{ inputs.TARGET_TAG }}
     # - ${{ inputs.SARIF_OUTPUT }}
     # - ${{ inputs.DOCKERFILE_PATH }}
