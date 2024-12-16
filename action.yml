@@ -1,0 +1,25 @@
+name: Reusable Smurf Workflow
+
+on:
+  workflow_call:
+    inputs:
+      tool:
+        description: "Specify the tool to use, e.g., sdkr"
+        required: true
+        type: string
+      command:
+        description: "Specify the command to execute, e.g., build, push, scan"
+        required: true
+        type: string
+      args:
+        description: "Arguments for the smurf command"
+        required: false
+        type: string
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.tool }}
+    - ${{ inputs.command }}
+    - ${{ inputs.args }}
