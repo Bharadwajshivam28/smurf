@@ -82,8 +82,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
+          git config --global user.name 'Bharadwajshivam28'
+          git config --global user.email 'shivambharadwaj822@gmail.com'
 
       - name: Commit and Push Changes
         run: |
