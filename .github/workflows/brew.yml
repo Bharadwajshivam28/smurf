@@ -1,0 +1,95 @@
+name: Update Formula Checksums
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag (e.g. v1)'
+        required: true
+
+jobs:
+  update-checksums:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: brew
+          token: ${{ secrets.TOKEN }}
+
+      - name: Download checksum file
+        run: |
+          curl -L -o "https://github.com/Bharadwajshivam28/smurf/releases/download/${{ github.event.inputs.release_tag }}/checksum.txt"
+          
+          # Display checksum content for verification
+          echo "Downloaded checksum.txt contents:"
+          cat checksum.txt
+
+      - name: Update Formula Checksums
+        run: |
+          # Verify checksum file exists
+          if [ ! -f checksum.txt ]; then
+            echo "Error: checksum.txt not found!"
+            exit 1
+          fi
+          
+          # Read checksum.txt and extract checksums with error checking
+          DARWIN_AMD64_CHECKSUM=$(grep "darwin-amd64.zip" checksum.txt | awk '{print $1}' || echo "")
+          if [ -z "$DARWIN_AMD64_CHECKSUM" ]; then
+            echo "Error: Could not find darwin-amd64 checksum"
+            exit 1
+          fi
+          
+          DARWIN_ARM64_CHECKSUM=$(grep "darwin-arm64.zip" checksum.txt | awk '{print $1}' || echo "")
+          if [ -z "$DARWIN_ARM64_CHECKSUM" ]; then
+            echo "Error: Could not find darwin-arm64 checksum"
+            exit 1
+          fi
+          
+          LINUX_AMD64_CHECKSUM=$(grep "linux-amd64.zip" checksum.txt | awk '{print $1}' || echo "")
+          if [ -z "$LINUX_AMD64_CHECKSUM" ]; then
+            echo "Error: Could not find linux-amd64 checksum"
+            exit 1
+          fi
+          
+          LINUX_ARM64_CHECKSUM=$(grep "linux-arm64.zip" checksum.txt | awk '{print $1}' || echo "")
+          if [ -z "$LINUX_ARM64_CHECKSUM" ]; then
+            echo "Error: Could not find linux-arm64 checksum"
+            exit 1
+          fi
+          
+          # Print checksums for verification
+          echo "Found checksums:"
+          echo "Darwin AMD64: $DARWIN_AMD64_CHECKSUM"
+          echo "Darwin ARM64: $DARWIN_ARM64_CHECKSUM"
+          echo "Linux AMD64: $LINUX_AMD64_CHECKSUM"
+          echo "Linux ARM64: $LINUX_ARM64_CHECKSUM"
+          
+          # Update smurf.rb with new checksums
+          sed -i "s|sha256 \"\".*# darwin-amd64|sha256 \"$DARWIN_AMD64_CHECKSUM\" # darwin-amd64|g" smurf.rb
+          sed -i "s|sha256 \"\".*# darwin-arm64|sha256 \"$DARWIN_ARM64_CHECKSUM\" # darwin-arm64|g" smurf.rb
+          sed -i "s|sha256 \"\".*# linux-amd64|sha256 \"$LINUX_AMD64_CHECKSUM\" # linux-amd64|g" smurf.rb
+          sed -i "s|sha256 \"\".*# linux-arm64|sha256 \"$LINUX_ARM64_CHECKSUM\" # linux-arm64|g" smurf.rb
+          
+          # Update version
+          sed -i "s|version \".*\"|version \"${{ github.event.inputs.release_tag }}\"|g" smurf.rb
+          
+          # Update download URLs
+          sed -i "s|/download/.*/smurf-darwin-amd64.zip|/download/${{ github.event.inputs.release_tag }}/smurf-darwin-amd64.zip|g" smurf.rb
+          sed -i "s|/download/.*/smurf-darwin-arm64.zip|/download/${{ github.event.inputs.release_tag }}/smurf-darwin-arm64.zip|g" smurf.rb
+          sed -i "s|/download/.*/smurf-linux-amd64.zip|/download/${{ github.event.inputs.release_tag }}/smurf-linux-amd64.zip|g" smurf.rb
+          sed -i "s|/download/.*/smurf-linux-arm64.zip|/download/${{ github.event.inputs.release_tag }}/smurf-linux-arm64.zip|g" smurf.rb
+          
+          # Display updated smurf.rb for verification
+          echo "Updated smurf.rb contents:"
+          cat smurf.rb
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+
+      - name: Commit and Push Changes
+        run: |
+          git add smurf.rb
+          git commit -m "Update Smurf formula to ${{ github.event.inputs.release_tag }}"
+          git push origin brew
