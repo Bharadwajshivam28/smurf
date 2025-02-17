@@ -15,7 +15,7 @@ jobs:
 
       - name: Download checksum file
         run: |
-          curl -L -o "https://github.com/Bharadwajshivam28/smurf/releases/download/${{ github.event.inputs.release_tag }}/checksum.txt"
+          curl -L https://github.com/Bharadwajshivam28/smurf/releases/download/${{ github.event.inputs.release_tag }}/checksum.txt -o checksum.txt
           
           # Display checksum content for verification
           echo "Downloaded checksum.txt contents:"
