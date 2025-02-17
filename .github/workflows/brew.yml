@@ -89,4 +89,4 @@ jobs:
         run: |
           git add smurf.rb
           git commit -m "Update Smurf formula to ${{ github.event.inputs.release_tag }}"
-          git push origin master
+           git push https://x-access-token:${{ secrets.CUSTOM_GITHUB_TOKEN }}}@github.com/${{ github.repository }}.git master
