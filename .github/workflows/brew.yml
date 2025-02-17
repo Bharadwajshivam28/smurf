@@ -82,11 +82,11 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name 'Bharadwajshivam28'
-          git config --global user.email 'shivambharadwaj822@gmail.com'
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
 
       - name: Commit and Push Changes
         run: |
           git add smurf.rb
           git commit -m "Update Smurf formula to ${{ github.event.inputs.release_tag }}"
-          git push origin brew
+          git push origin master
